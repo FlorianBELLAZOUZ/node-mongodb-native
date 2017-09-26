@@ -154,7 +154,6 @@ exports['Should retry connection'] = {
         autoReconnect:true,
       }, function(err, db) {
         console.log(err)
-        db.close();
         test.done();
       });
     })
