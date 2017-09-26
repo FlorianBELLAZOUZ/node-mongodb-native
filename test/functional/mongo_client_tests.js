@@ -138,7 +138,7 @@ exports['Should correctly pass through extra db options'] = {
   }
 }
 
-exports['Should retry connection'] = {
+exports['Should fail connection'] = {
   metadata: {
     requires: {
       node: ">0.8.0",
@@ -153,8 +153,8 @@ exports['Should retry connection'] = {
       MongoClient.connect(configuration.url(), {
         autoReconnect:true,
       }, function(err, db) {
-        console.log(err)
-        test.done();
+        console.log(err.message);
+        configuration.start(test.done);
       });
     })
   }
