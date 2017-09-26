@@ -138,6 +138,29 @@ exports['Should correctly pass through extra db options'] = {
   }
 }
 
+exports['Should retry connection'] = {
+  metadata: {
+    requires: {
+      node: ">0.8.0",
+      topology: ['single']
+    }
+  },
+
+  // The actual test we wish to run
+  test: function(configuration, test) {
+    configuration.stop(function() {
+      var MongoClient = configuration.require.MongoClient;
+      MongoClient.connect(configuration.url(), {
+        autoReconnect:true,
+      }, function(err, db) {
+        console.log(err)
+        db.close();
+        test.done();
+      });
+    })
+  }
+}
+
 exports['Should correctly pass through extra server options'] = {
   metadata: {
     requires: {
