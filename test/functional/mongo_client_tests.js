@@ -174,21 +174,21 @@ exports['Should reconnection on first fail'] = {
   test: function(configuration, test) {
     configuration.stop(function() {
       var MongoClient = configuration.require.MongoClient;
-      var isFail = /failed to connect to server/;
       var _db = null;
-      setTimeout(function(){
-        configuration.start();
-      },1100)
-      setTimeout(function(){
-        console.log(typeof _db,_db==true);
-        test.done();
-      },2100)
       MongoClient.connect(configuration.url(), {
         autoReconnect:true,
         reconnectInterval: 1000,
       }, function(err, db) {
         _db=db
       });
+      setTimeout(function(){
+        configuration.start();
+      },1100)
+      setTimeout(function(){
+        console.log(typeof _db,_db==true);
+        _db.close();
+        test.done();
+      },2100)
     })
   }
 }
