@@ -156,7 +156,7 @@ exports['Should fail connection'] = {
         reconnectInterval: 1000,
       }, function(err, db) {
         if(err) test.equal(true, isFail.test(err.message));
-        configuration.start(test.done);
+        configuration.start(function(){test.done()});
       });
     })
   }
