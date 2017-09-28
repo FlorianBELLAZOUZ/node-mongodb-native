@@ -180,7 +180,7 @@ exports['Should reconnection on first fail'] = {
         configuration.start();
       },1100)
       setTimeout(function(){
-        test.equal(true,_db==true);
+        console.log(typeof _db,_db==true);
         test.done();
       },2100)
       MongoClient.connect(configuration.url(), {
