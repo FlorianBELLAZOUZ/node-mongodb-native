@@ -178,14 +178,14 @@ exports['Should reconnection on first fail'] = {
       var _db = null;
       setTimeout(function(){
         configuration.start();
-      },110)
+      },1100)
       setTimeout(function(){
         test.equal(true,_db==true);
         test.done();
-      },210)
+      },2100)
       MongoClient.connect(configuration.url(), {
         autoReconnect:true,
-        reconnectInterval: 100,
+        reconnectInterval: 1000,
       }, function(err, db) {
         if(err) test.equal(false, isFail.test(err.message));
         _db=db
