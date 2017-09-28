@@ -187,7 +187,6 @@ exports['Should reconnection on first fail'] = {
         autoReconnect:true,
         reconnectInterval: 1000,
       }, function(err, db) {
-        if(err) test.equal(false, isFail.test(err.message));
         _db=db
       });
     })
