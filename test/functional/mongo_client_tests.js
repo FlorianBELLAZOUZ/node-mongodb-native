@@ -155,6 +155,7 @@ exports['Should fail connection'] = {
         reconnectInterval: 1000,
       }, function(err, db) {
         console.log(err.message);
+        db.close();
         configuration.start(test.done);
       });
     })
