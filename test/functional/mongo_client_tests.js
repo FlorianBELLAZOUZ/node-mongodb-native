@@ -152,6 +152,7 @@ exports['Should fail connection'] = {
       var MongoClient = configuration.require.MongoClient;
       MongoClient.connect(configuration.url(), {
         autoReconnect:true,
+        reconnectInterval: 1000,
       }, function(err, db) {
         console.log(err.message);
         configuration.start(test.done);
