@@ -154,7 +154,7 @@ exports['Should fail connection'] = {
         autoReconnect:true,
         reconnectInterval: 1000,
       }, function(err, db) {
-        console.log(err.message);
+        if(err) console.log(err.message);
         configuration.start(test.done);
       });
     })
