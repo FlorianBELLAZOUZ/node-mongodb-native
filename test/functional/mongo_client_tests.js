@@ -150,11 +150,12 @@ exports['Should fail connection'] = {
   test: function(configuration, test) {
     configuration.stop(function() {
       var MongoClient = configuration.require.MongoClient;
+      var isFail = /failed to connect to server/.test
       MongoClient.connect(configuration.url(), {
         autoReconnect:true,
         reconnectInterval: 1000,
       }, function(err, db) {
-        if(err) console.log(err.message);
+        if(err) test.equal(true, isFail(err.message));
         configuration.start(test.done);
       });
     })
