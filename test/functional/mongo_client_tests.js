@@ -182,7 +182,6 @@ exports['Should reconnection on first fail'] = {
       }, function(err, db) {
         console.log('mongo connected',err)
         if(!err){
-          console.log(typeof _db,_db==true);
           db.close();
           test.done();
         }
