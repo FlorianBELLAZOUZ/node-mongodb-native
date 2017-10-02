@@ -192,6 +192,7 @@ exports['Should reconnection on first fail'] = {
     //     configuration.start();
     //   },1100)
     // });
+    test.done()
   }
 }
 
