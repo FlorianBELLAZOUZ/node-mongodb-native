@@ -138,31 +138,7 @@ exports['Should correctly pass through extra db options'] = {
   }
 }
 
-exports['Should fail connection'] = {
-  metadata: {
-    requires: {
-      node: ">0.8.0",
-      topology: ['single']
-    }
-  },
-
-  // The actual test we wish to run
-  test: function(configuration, test) {
-    configuration.stop(function() {
-      var MongoClient = configuration.require.MongoClient;
-      var isFail = /failed to connect to server/
-      MongoClient.connect(configuration.url(), {
-        autoReconnect:true,
-        reconnectInterval: 1000,
-      }, function(err, db) {
-        if(err) test.equal(true, isFail.test(err.message));
-        configuration.start(function(){test.done()});
-      });
-    })
-  }
-}
-
-exports['Should reconnection on first fail'] = {
+exports['Should reconnect on first fail'] = {
   metadata: {
     requires: {
       node: ">0.8.0",
@@ -178,9 +154,29 @@ exports['Should reconnection on first fail'] = {
         autoReconnectFirst:true,
         reconnectInterval: 1000,
       }, function(err, db) {
-        if(!err){
-          db.close().then(test.done);
-        }
+        if(!err) db.close().then(test.done);
+      });
+    });
+    setTimeout(function(){configuration.start(function(){})})
+  }
+}
+
+exports['Should fail on first connection'] = {
+  metadata: {
+    requires: {
+      node: ">0.8.0",
+      topology: ['single']
+    }
+  },
+
+  // The actual test we wish to run
+  test: function(configuration, test) {
+    var MongoClient = configuration.require.MongoClient;
+    var isFail = /failed to connect to server.*on first connect/
+    configuration.stop(function() {
+      MongoClient.connect(configuration.url(),
+      function(err, db) {
+          test.equal(true,isFail.test(err.message))
       });
     });
     setTimeout(function(){configuration.start(function(){})})
