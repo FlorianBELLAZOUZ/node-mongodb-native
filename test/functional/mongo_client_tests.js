@@ -138,6 +138,51 @@ exports['Should correctly pass through extra db options'] = {
   }
 }
 
+exports['Should reconnect on first fail'] = {
+  metadata: {
+    requires: {
+      node: ">0.8.0",
+      topology: ['single']
+    }
+  },
+
+  // The actual test we wish to run
+  test: function(configuration, test) {
+    var MongoClient = configuration.require.MongoClient;
+    configuration.stop(function() {
+      MongoClient.connect(configuration.url(), {
+        autoReconnectFirst:true,
+        reconnectInterval: 1000,
+      }, function(err, db) {
+        if(!err) db.close().then(test.done);
+      });
+    });
+    setTimeout(function(){configuration.start(function(){})})
+  }
+}
+
+exports['Should fail on first connection'] = {
+  metadata: {
+    requires: {
+      node: ">0.8.0",
+      topology: ['single']
+    }
+  },
+
+  // The actual test we wish to run
+  test: function(configuration, test) {
+    var MongoClient = configuration.require.MongoClient;
+    var isFail = /failed to connect to server.*on first connect/
+    configuration.stop(function() {
+      MongoClient.connect(configuration.url(),
+      function(err, db) {
+        test.equal(true,isFail.test(err.message))
+        configuration.start(test.done);
+      });
+    });
+  }
+}
+
 exports['Should correctly pass through extra server options'] = {
   metadata: {
     requires: {
@@ -443,6 +488,7 @@ exports["should correctly connect to mongodb using domain socket"] = {
   test: function(configuration, test) {
     var MongoClient = configuration.require.MongoClient;
     MongoClient.connect('mongodb:///tmp/mongodb-27017.sock/test', function(err, db) {
+      console.log(err)
       test.equal(null, err);
       test.done();
     });
