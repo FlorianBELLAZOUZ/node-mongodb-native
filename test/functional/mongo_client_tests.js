@@ -175,20 +175,23 @@ exports['Should reconnection on first fail'] = {
     configuration.stop(function() {
       var MongoClient = configuration.require.MongoClient;
       var _db = null;
+
       MongoClient.connect(configuration.url(), {
         autoReconnectFirst:true,
         reconnectInterval: 1000,
       }, function(err, db) {
+        console.log('mongo connect',err)
         if(!err){
           console.log(typeof _db,_db==true);
           db.close();
           test.done();
         }
       });
+
       setTimeout(function(){
         configuration.start();
       },1100)
-    })
+    });
   }
 }
 
