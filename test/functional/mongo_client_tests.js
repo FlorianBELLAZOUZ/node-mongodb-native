@@ -184,7 +184,7 @@ exports['Should reconnection on first fail'] = {
         }
       });
     });
-    setTimeout(function(){configuration.start(function(){})},1200)
+    setTimeout(function(){configuration.start(function(){})})
   }
 }
 
