@@ -180,7 +180,7 @@ exports['Should reconnection on first fail'] = {
       }, function(err, db) {
         if(!err){
           db.close();
-          test.done();
+          setTimeout(test.done,1000)
         }
       });
     });
