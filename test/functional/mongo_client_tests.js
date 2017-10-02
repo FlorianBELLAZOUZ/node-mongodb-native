@@ -172,9 +172,8 @@ exports['Should reconnection on first fail'] = {
 
   // The actual test we wish to run
   test: function(configuration, test) {
-    // configuration.stop(function() {
-      var MongoClient = configuration.require.MongoClient;
-      // var _db = null;
+    var MongoClient = configuration.require.MongoClient;
+    configuration.stop(function() {
 
       MongoClient.connect(configuration.url(), {
         autoReconnectFirst:true,
@@ -187,10 +186,10 @@ exports['Should reconnection on first fail'] = {
         }
       });
 
-      // setTimeout(function(){
-        // configuration.start();
-      // },1100)
-    // });
+      setTimeout(function(){
+        configuration.start();
+      },1100)
+    });
   }
 }
 
