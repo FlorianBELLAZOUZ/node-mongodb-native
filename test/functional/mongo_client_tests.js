@@ -179,8 +179,7 @@ exports['Should reconnection on first fail'] = {
         reconnectInterval: 1000,
       }, function(err, db) {
         if(!err){
-          db.close();
-          setTimeout(test.done)
+          db.close().then(test.done);
         }
       });
     });
