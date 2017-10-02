@@ -180,7 +180,7 @@ exports['Should reconnection on first fail'] = {
         autoReconnectFirst:true,
         reconnectInterval: 1000,
       }, function(err, db) {
-        console.log('mongo connect',err)
+        console.log('mongo connected',err)
         if(!err){
           console.log(typeof _db,_db==true);
           db.close();
