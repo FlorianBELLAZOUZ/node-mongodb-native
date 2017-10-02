@@ -162,6 +162,39 @@ exports['Should fail connection'] = {
   }
 }
 
+exports['Should reconnection on first fail'] = {
+  metadata: {
+    requires: {
+      node: ">0.8.0",
+      topology: ['single']
+    }
+  },
+
+  // The actual test we wish to run
+  test: function(configuration, test) {
+    configuration.stop(function() {
+      var MongoClient = configuration.require.MongoClient;
+      var _db = null;
+
+      MongoClient.connect(configuration.url(), {
+        autoReconnectFirst:true,
+        reconnectInterval: 1000,
+      }, function(err, db) {
+        console.log('mongo connected',err)
+        if(!err){
+          console.log(typeof _db,_db==true);
+          db.close();
+          test.done();
+        }
+      });
+
+      setTimeout(function(){
+        configuration.start();
+      },1100)
+    });
+  }
+}
+
 exports['Should correctly pass through extra server options'] = {
   metadata: {
     requires: {
