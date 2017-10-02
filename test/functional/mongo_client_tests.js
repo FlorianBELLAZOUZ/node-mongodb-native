@@ -183,8 +183,10 @@ exports['Should reconnection on first fail'] = {
           // db.close();
         // }
       // });
+      console.log('@@@@@@@@@@@@@@ stop')
     });
     setTimeout(function(){
+      console.log('@@@@@@@@@@@@@@ start')
       configuration.start();
       test.done();
     },1100)
