@@ -178,16 +178,13 @@ exports['Should reconnection on first fail'] = {
         autoReconnectFirst:true,
         reconnectInterval: 1000,
       }, function(err, db) {
+        if(err){configuration.start(function(){});}
         if(!err){
           db.close();
           setTimeout(test.done,1000)
         }
       });
     });
-
-    setTimeout(function(){
-      configuration.start(()=>{});
-    },1100)
   }
 }
 
