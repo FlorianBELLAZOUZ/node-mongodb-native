@@ -177,7 +177,7 @@ exports['Should fail on first connection'] = {
       MongoClient.connect(configuration.url(),
       function(err, db) {
         test.equal(true,isFail.test(err.message))
-        configuration.start(test.done());
+        configuration.start(test.done);
       });
     });
   }
