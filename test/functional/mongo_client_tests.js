@@ -176,11 +176,10 @@ exports['Should fail on first connection'] = {
     configuration.stop(function() {
       MongoClient.connect(configuration.url(),
       function(err, db) {
-          test.equal(true,isFail.test(err.message))
-          test.done();
+        test.equal(true,isFail.test(err.message))
+        configuration.start(test.done());
       });
     });
-    setTimeout(function(){configuration.start(function(){})})
   }
 }
 
