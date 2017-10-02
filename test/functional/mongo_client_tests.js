@@ -497,6 +497,7 @@ exports["should correctly connect to mongodb using domain socket"] = {
   test: function(configuration, test) {
     var MongoClient = configuration.require.MongoClient;
     MongoClient.connect('mongodb:///tmp/mongodb-27017.sock/test', function(err, db) {
+      console.log(err)
       test.equal(null, err);
       test.done();
     });
