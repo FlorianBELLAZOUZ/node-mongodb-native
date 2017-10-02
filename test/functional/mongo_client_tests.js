@@ -182,11 +182,15 @@ exports['Should reconnection on first fail'] = {
       }, function(err, db) {
         console.log('mongo connect',err)
         if(!err){
-          // console.log(typeof _db,_db==true);
-          // db.close();
+          console.log(typeof _db,_db==true);
+          db.close();
           test.done();
         }
       });
+
+      setTimeout(function(){
+        configuration.start();
+      },1100)
     });
   }
 }
