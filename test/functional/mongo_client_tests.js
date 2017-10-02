@@ -187,8 +187,7 @@ exports['Should reconnection on first fail'] = {
     });
     setTimeout(function(){
       console.log('@@@@@@@@@@@@@@ start')
-      configuration.start();
-      test.done();
+      configuration.start(test.done);
     },1100)
   }
 }
