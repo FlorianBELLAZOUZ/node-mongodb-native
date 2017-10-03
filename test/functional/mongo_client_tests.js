@@ -174,7 +174,9 @@ exports['Should fail on first connection'] = {
     var MongoClient = configuration.require.MongoClient;
     var isFail = /failed to connect to server.*on first connect/
     configuration.stop(function() {
-      MongoClient.connect(configuration.url(),
+      MongoClient.connect(configuration.url(),{
+        autoReconnectFirst:false,
+      },
       function(err, db) {
         test.equal(true,isFail.test(err.message))
         configuration.start(test.done);
